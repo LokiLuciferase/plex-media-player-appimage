@@ -125,64 +125,6 @@ else
   VERSION="${DATE}-${COMMIT_HASH}"
 fi
 
-# Build mpv library
-cd "${WORKDIR}/mpv-build"
-echo "Using ffmpeg ${FFMPEG_VERSION}"
-./use-ffmpeg-custom "n${FFMPEG_VERSION}"
-echo "Using mpv ${MPV_VERSION}"
-./use-mpv-custom "v${MPV_VERSION}"
-echo "Using libass 0.14.0"
-./use-libass-custom 0.14.0
-
-# FFmpeg requires this for NVIDIA support
-echo "Downloading NVIDIA headers"
-if [[ -d ffnvcodec ]]; then
-  cd ffnvcodec
-  git clean -xdf
-  git fetch -t
-  git checkout n8.2.15.10
-  cd ..
-else
-  git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git ffnvcodec
-fi
-
-# FFmpeg build options
-echo "--prefix=/usr" > ffmpeg_options
-echo "--enable-shared" >> ffmpeg_options
-echo "--disable-static" >> ffmpeg_options
-echo "--enable-gnutls" >> ffmpeg_options
-echo "--enable-pic" >> ffmpeg_options
-echo "--disable-doc" >> ffmpeg_options
-echo "--disable-programs" >> ffmpeg_options
-echo "--disable-encoders" >> ffmpeg_options
-echo "--disable-muxers" >> ffmpeg_options
-echo "--disable-devices" >> ffmpeg_options
-echo "--enable-vaapi" >> ffmpeg_options
-echo "--enable-vdpau" >> ffmpeg_options
-echo "--enable-cuda" >> ffmpeg_options
-
-# mpv build options
-echo "--prefix=/usr" > mpv_options
-echo "--enable-libmpv-shared" >> mpv_options
-echo "--disable-cplayer" >> mpv_options
-echo "--disable-build-date" >> mpv_options
-echo "--disable-manpage-build" >> mpv_options
-echo "--enable-vaapi" >> mpv_options
-echo "--enable-vdpau" >> mpv_options
-echo "--enable-cuda-hwaccel" >> mpv_options
-echo "--enable-pulse" >> mpv_options
-echo "--enable-alsa" >> mpv_options
-echo "--disable-oss-audio" >> mpv_options
-echo "--disable-tv" >> mpv_options
-echo "--enable-uchardet" >> mpv_options
-
-cd ffnvcodec
-make && make install PREFIX="/usr"
-cd ..
-
-./rebuild
-./install
-
 # Build Plex Media Player
 cd "${WORKDIR}/plex-media-player"
 rm -rf build

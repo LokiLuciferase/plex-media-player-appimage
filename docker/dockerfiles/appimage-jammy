@@ -42,6 +42,8 @@ RUN set -e \
     libva-dev \
     mesa-common-dev \
     meson \
+    mpv \
+    ffmpeg \
     ninja-build \
     libegl1-mesa-dev \
     libasound2-dev \
