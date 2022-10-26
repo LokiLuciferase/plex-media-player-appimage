@@ -80,6 +80,7 @@ if [[ -d plex-media-player ]]; then
   cd ..
 else
   git clone --branch master https://github.com/plexinc/plex-media-player.git
+  sed -i 's/default_tag = "auto"/default_tag = "haxxord"/g' plex-media-player/scripts/fetch-binaries.py
 fi
 
 # If building from tag use a specific version of Plex Media Player sources
