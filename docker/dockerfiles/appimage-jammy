@@ -41,6 +41,8 @@ RUN set -e \
     libvdpau-dev \
     libva-dev \
     mesa-common-dev \
+    meson \
+    ninja-build \
     libegl1-mesa-dev \
     libasound2-dev \
     libpulse-dev \
