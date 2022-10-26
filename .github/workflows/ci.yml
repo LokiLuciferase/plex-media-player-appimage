@@ -9,7 +9,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     container:
-      image: lokiluciferase/plex-media-player-appimage:focal
+      image: lokiluciferase/plex-media-player-appimage:jammy
       options: --privileged --device /dev/fuse
     steps:
       - name: Checkout code
